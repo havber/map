@@ -9,7 +9,9 @@ var gulp        = require('gulp'),
     uglify      = require('gulp-uglify'),
     less        = require('gulp-less'),
     browsersync = require('browser-sync'),
-    reload      = browsersync.reload;
+    reload      = browsersync.reload,
+    minifyCss   = require('gulp-minify-css');
+
 
 gulp.task('browserify', function () {
     var browserified = transform(function(filename) {
@@ -23,11 +25,14 @@ gulp.task('browserify', function () {
         .pipe(gulp.dest('./bin/app/js'));
 });
 
+
 gulp.task('less', function () {
     return gulp.src('./src/less/**/*.less')
         .pipe(less())
+        .pipe(minifyCss())
         .pipe(gulp.dest('./bin/app/css'));
 });
+
 
 gulp.task('browsersync', function () {
     browsersync({
@@ -36,6 +41,7 @@ gulp.task('browsersync', function () {
         }
     });
 });
+
 
 gulp.task('watch', ['browsersync'], function() {
     gulp.watch(

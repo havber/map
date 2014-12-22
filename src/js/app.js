@@ -1,10 +1,19 @@
 /*jshint node:true*/
-/*global document*/
+/*global document, L, navigator*/
 
 "use strict";
 
 
 var tag = require('tag'),
-    container = document.querySelector('.js-content-container');
+    container = document.querySelector('.js-content-container'),
+    position = navigator.geolocation.getCurrentPosition(getPos),
+    config = require('config/config.json');
 
-container.appendChild(tag.h1('Hepparoo!'));
+L.mapbox.accessToken = config.mapboxKey;
+
+L.mapbox.map('map', 'havber.ki81jinj')
+    .setView(position, 15);
+
+function getPos(pos) {
+    return [pos. coords. latitude, pos.coords.longitude];
+}

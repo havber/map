@@ -7,7 +7,7 @@
 var tag = require('tag'),
     container = document.querySelector('.js-content-container'),
     position = navigator.geolocation.getCurrentPosition(getPos),
-    config = require('config/config.json');
+    config = require('../config/config');
 
 L.mapbox.accessToken = config.mapboxKey;
 

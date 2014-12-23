@@ -1,4 +1,4 @@
 node_modules
-bin/app/js
-bin/app/css
-/src/config
+/bin/app/js
+/bin/app/css
+/config

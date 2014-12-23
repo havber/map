@@ -10,8 +10,12 @@ var gulp        = require('gulp'),
     less        = require('gulp-less'),
     browsersync = require('browser-sync'),
     reload      = browsersync.reload,
-    minifyCss   = require('gulp-minify-css');
+    minifyCss   = require('gulp-minify-css'),
+    sourcemaps  = require('gulp-sourcemaps');
 
+gulp.task('default', ['browserify', 'less', 'browsersync', 'watch'], function() {
+    //Stuff
+});
 
 gulp.task('browserify', function () {
     var browserified = transform(function(filename) {
@@ -20,8 +24,10 @@ gulp.task('browserify', function () {
     });
 
     return gulp.src(['./src/js/*.js'])
+        .pipe(sourcemaps.init())
         .pipe(browserified)
-        .pipe(uglify())
+        //.pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./bin/app/js'));
 });
 

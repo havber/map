@@ -4,16 +4,26 @@
 "use strict";
 
 
-var tag = require('tag'),
+var tag       = require('tag'),
     container = document.querySelector('.js-content-container'),
-    position = navigator.geolocation.getCurrentPosition(getPos),
-    config = require('../config/config');
+    config    = require('../../config/config');
 
+//console.log(position);
 L.mapbox.accessToken = config.mapboxKey;
 
-L.mapbox.map('map', 'havber.ki81jinj')
-    .setView(position, 15);
+var map = L.mapbox.map('map', 'havber.ki81jinj').
+        setView([60.39, 5.32], 16);
 
-function getPos(pos) {
-    return [pos. coords. latitude, pos.coords.longitude];
-}
+navigator.geolocation.watchPosition(
+    function onSuccess(pos) {
+        var latLng = L.latLng(pos.coords.latitude, pos.coords.longitude),
+            marker = L.circleMarker(latLng);
+        console.log(latLng);
+        map.panTo(latLng);
+        marker.addTo(map);
+    },
+    function onError() {
+
+    },
+    {}
+);
